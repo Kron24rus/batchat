@@ -1,0 +1,101 @@
+<!--
+	#!LOGINMESSAGE!#
+
+		Content: Login status
+
+		Variants:
+			Login invitation:
+				<p class=muted>Enter username and password</p>
+				
+			Login fail:
+				<p class=text-error>Invalid username or password</p>
+
+
+!-->
+
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+	<title>Bat Chat</title>
+	<link rel="stylesheet" type="text/css" href="/static/css/bootstrap.css"/>
+	<link rel="stylesheet" type="text/css" href="/static/css/style.css"/>
+	<script type="text/javascript" src="/static/js/jquery-1.11.3.min.js"></script>
+	<script type="text/javascript" src="/static/js/bootstrap.js"></script>
+	<script type="text/javascript" src="/static/js/bc-index.js"></script>
+</head>
+
+<body id="thebody">
+
+	<!-- Navigation Bar !-->
+	<div class="navbar navbar-static navbar-inverse navbar-fixed-top" id="navbar">
+		<div class="navbar-inner">
+			<div class="container" style="width: auto;">
+				<a class="brand" style="color: #fff;"> &nbsp;Bat Chat</a>
+				<ul class="nav" role="navigation">
+					<li class="dropdown">
+						<a class="dropdown-toggle" id="username" role="button" style="color: #333;">
+							<i class="icon-th-list"></i>
+							Rooms
+							<b class="caret"></b>
+						</a>
+					</li>
+				</ul>
+				<ul class="nav" role="navigation">
+					<li class="dropdown">
+						<a class="dropdown-toggle" id="username" role="button" style="color: #333;">
+							<i class="icon-wrench"></i>
+							Admin Tools
+							<b class="caret"></b>
+						</a>
+					</li>
+				</ul>
+				<ul class="nav pull-right" role="navigation">
+					<li class="dropdown">
+						<a class="dropdown-toggle" id="username" role="button" style="color: #333;"> 
+							<i class="icon-user"></i>
+							Not Logged In
+							<b class="caret"></b>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<!-- Content !-->
+	<div class="container">
+		<div class="span12" id="allcontent">
+			<form th:action="@{/login}" method="post">
+				<div th:if="${param.error}" class="control-group" id="loginmsg">
+					Invalid username and password!
+				</div>
+				<div th:if="${param.logout}" class="control-group" id="loginmsg">
+					You have been logged out.
+				</div>
+				<div class="control-group">
+					<div class="input-prepend">
+						<span class="add-on">
+							<i class="icon-user"></i>
+						</span>
+						<input class="span3" id="usernameInput" type="text" name="username" placeholder="Username"/>
+					</div>
+				</div>
+				<div class="control-group">
+					<div class="input-prepend">
+						<span class="add-on">
+							<i class="icon-asterisk"></i>
+						</span>
+						<input class="span3" id="passwordInput" type="password" name="password" placeholder="Password"/>
+					</div>
+				</div>
+				<div class="control-group">
+					<input type="submit" class="btn btn-primary disabled" id="loginButton" value="Sign In"/>
+				</div>
+			</form>
+		</div>
+	</div>
+
+</body>
+
+</html>
