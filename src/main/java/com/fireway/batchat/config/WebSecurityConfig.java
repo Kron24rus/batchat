@@ -26,9 +26,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/roomlist").access("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
-                .antMatchers("/createuser").access("hasRole('ROLE_ADMIN')")
-                .antMatchers("/modifyuser").access("hasRole('ROLE_ADMIN')")
+                .antMatchers("/roomlist").access("isAuthenticated()")
+                .antMatchers("/createuser").access("hasRole('ROLE_ADMIN') and isAuthenticated()")
+                .antMatchers("/modifyuser").access("hasRole('ROLE_ADMIN') and isAuthenticated()")
+                .antMatchers("/myroomlist").access("isAuthenticated()")
+                .antMatchers("/createroom").access("isAuthenticated()")
+                .antMatchers("/userinfo").access("isAuthenticated()")
+                .antMatchers("/roomchat").access("isAuthenticated()")
+                .antMatchers("/modcurrentuser").access("hasRole('ROLE_ADMIN') and isAuthenticated()")
+                .antMatchers("/modifyroom").access("isAuthenticated")
                 .anyRequest().permitAll()
                 .and()
                 .formLogin().loginPage("/login")

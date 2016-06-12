@@ -108,7 +108,7 @@ function fullinput_check()
 				<li class="dropdown" align="left">
 					<a class="dropdown-toggle" id="username" role="button" href="#" data-toggle="dropdown"  style="color: #fff;"> 
 						<i class="icon-user icon-white"></i>
-							<c:out value="${pageContext.request.remoteUser}"></c:out>
+							${pageContext.request.userPrincipal.name}
 						<b class="caret"></b>
 					</a>
 					<ul class="dropdown-menu" role="menu">

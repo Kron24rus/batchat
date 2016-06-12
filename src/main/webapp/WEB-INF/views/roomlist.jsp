@@ -1,55 +1,5 @@
 <!--
 
-	#!USERNAME!#
-
-		Content: Name of the current user
-
-		Example:
-			kron22
-
-	#!ADMINTOOLSLIST!#
-
-		Content: Links for Admin
-
-		Variants:
-			User is Admin:
-
-				<ul class="nav" role="navigation">
-					<li class="dropdown" align="left" id="adminlist">
-						<a class="dropdown-toggle" role="button" data-toggle="dropdown" style="color: #fff;">
-							<i class="icon-wrench icon-white"></i>
-							Admin Tools
-							<b class="caret"></b>
-						</a>
-						<ul class="dropdown-menu" role="menu">
-							<li>
-								<a href="#!ADMINCREATEUSERLINK!#" tabindex="-1">
-									<i class="icon-plus"></i>
-									Create User
-								</a>
-							</li>
-							<li>
-								<a href="#!ADMINMODIFYUSERLINK!#" tabindex="-1">
-									<i class="icon-edit"></i>
-									Modify/Delete User
-								</a>
-							</li>
-						</ul>
-					</li>
-				</ul>
-
-			User is Not Admin:
-
-				<ul class="nav" role="navigation">
-					<li class="dropdown">
-						<a class="dropdown-toggle" id="username" role="button" style="color: #333;">
-							<i class="icon-wrench"></i>
-							Admin Tools
-							<b class="caret"></b>
-						</a>
-					</li>
-				</ul>
-
 	#!FULLROOMLISTLINK!#
 
 		Content: Link to full room list (current page)
@@ -333,7 +283,7 @@
 					<li class="dropdown" align="left">
 						<a class="dropdown-toggle" id="username" role="button" data-toggle="dropdown"  style="color: #fff;"> 
 							<i class="icon-user icon-white"></i>
-								<c:out value="${pageContext.request.remoteUser}"></c:out>
+								${pageContext.request.userPrincipal.name}
 							<b class="caret"></b>
 						</a>
 						<ul class="dropdown-menu" role="menu">
@@ -371,7 +321,7 @@
 					</tr>
 				</thead>
 				<tbody id="roomlistbody">
-					#!ROOMLIST!#
+					<h3>${rooms}</h3>
 				</tbody>
 			</table>
 

@@ -17,4 +17,20 @@ public class BaseController {
         model.setViewName("login");
         return model;
     }
+
+    @RequestMapping(value = "/roomlist", method = RequestMethod.GET)
+    public ModelAndView allRoomPage() {
+        ModelAndView model = new ModelAndView();
+        model.addObject("rooms", "All rooms");
+        model.setViewName("roomlist");
+        return model;
+    }
+
+    @RequestMapping(value = "/myroomlist", method = RequestMethod.GET)
+    public ModelAndView userRoomPage() {
+        ModelAndView model = new ModelAndView();
+        model.addObject("rooms", "My rooms");
+        model.setViewName("roomlist");
+        return model;
+    }
 }

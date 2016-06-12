@@ -270,12 +270,12 @@
 	<!-- Content !-->
 	<div class="container">
 		<div class="span12" id="allcontent">
-			<h3>User <c:out value="${pageContext.request.remoteUser}"></c:out></h3>
+			<h3>User ${pageContext.request.userPrincipal.name}</h3>
 			#!ADMINSTATUS!#
 			<div class="control-group">
 				<p class="text-info">
 					<i class="icon-font"></i>
-						<c:out value="${pageContext.request.remoteUser}"></c:out> #!USERSECONDNAME!#
+					#!USERFIRSTNAME!# #!USERSECONDNAME!#
 				</p>
 			</div>
 			<div class="control-group">
