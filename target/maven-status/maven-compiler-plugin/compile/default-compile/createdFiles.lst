@@ -1,9 +1,7 @@
-com/fireway/batchat/domain/User.class
-com/fireway/batchat/configuration/WebSecurityConfig.class
-com/fireway/batchat/security/CustomUserDetailsService.class
-com/fireway/batchat/domain/UserRoleRepository.class
-com/fireway/batchat/domain/UserRepository.class
-com/fireway/batchat/configuration/MvcConfig.class
+com/fireway/batchat/mvc/controller/BaseController.class
+com/fireway/batchat/config/WebConfig.class
+com/fireway/batchat/config/AuthenticationProviderConfig.class
 com/fireway/batchat/Application.class
-com/fireway/batchat/security/CustomUserDetails.class
-com/fireway/batchat/domain/UserRole.class
+com/fireway/batchat/config/WebSecurityConfig.class
+com/fireway/batchat/config/WebSpringSecurityInit.class
+com/fireway/batchat/config/MvcConfig.class

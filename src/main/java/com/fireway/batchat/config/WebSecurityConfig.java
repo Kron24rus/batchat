@@ -1,9 +1,7 @@
-package com.fireway.batchat.configuration;
+package com.fireway.batchat.config;
 
-import com.fireway.batchat.security.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -15,7 +13,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
-@ComponentScan(basePackageClasses = CustomUserDetailsService.class)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -29,7 +26,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/roomlist").access("hasRole('ROLE_ADMIN')")
+                .antMatchers("/roomlist").access("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
+                .antMatchers("/createuser").access("hasRole('ROLE_ADMIN')")
+                .antMatchers("/modifyuser").access("hasRole('ROLE_ADMIN')")
                 .anyRequest().permitAll()
                 .and()
                 .formLogin().loginPage("/login")

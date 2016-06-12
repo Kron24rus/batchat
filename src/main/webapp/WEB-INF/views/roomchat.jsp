@@ -52,7 +52,7 @@
 
 	#!FULLROOMLISTLINK!#
 
-		Content: Link to full room list (current page)
+		Content: Link to full room list
 
 		Example:
 			fullroomlist.html
@@ -103,131 +103,140 @@
 			modifyuser.html
 			admin.html?mode=modify
 
-	#!ROOMLIST!#
+	#!ROOMNAME!#
 
-		Content: Room List
+		Content: Current Room name
+
+		Example:
+			Common_chat
+
+	#!MESSAGELIST!#
+
+		Content: Message List
 
 		Row:
-			<tr class="#?TRCLASS?#">
-				<td>#?ROOMNAME?#</td>
-				<td>#?ROOMOWNER?#</td>
-				<td>#?ROOMACCESSMODE>#</td>
-				<td>
-					#?ROOMENTERBUTTON?#
-					#?ROOMMODIFYBUTTON?#
-					#?ROOMDELETEBUTTON?#
-				</td>
-			</tr>
+			<font color="#?FONTMSGCOLOR?#"> #?MSGAUTHOR?# @ #?MSGAUTHORFIRSTNAME?# #?MSGAUTHORSECONDNAME?# </font>: #?MESSAGECONTENT?#<br>
 
-		Row Parameters:
+		Parameters:
 
-			#?TRCLASS?#
+			#?FONTMSGCOLOR?#
 
-				Content: row class
+				Content: User name fonr color
 
 				Variants:
-					User can modify and delete room:
 
-						info
+					User is admin:
+						#d4f
 
-					User can only enter the room:
+					User is room owner, but not admin:
+						#0cb
 
-						success
+					Else:
+						#081
 
-					User cannot even enter the room:
+			#?MSGAUTHOR?#
 
-						error
-
-			#?ROOMNAME?#
-
-				Content: room name
-
-				Example:
-					Common_chat
-
-			#?ROOMOWNER?#
-
-				Content: name of the room's owner
+				Content: message author name
 
 				Example:
 					kron22
 
-			#?ROOMACCESSMODE?#
+			#?MSGAUTHORFIRSTNAME?#
 
-				Content: room access mode
+				Content: message author's first name
 
-				Variants:
-					private
-					public
+				Example:
+					Alexandr
 
-			#?ROOMENTERBUTTON?#
+			#?MSGAUTHORSECONDNAME?#
 
-				Content: button to enter the room
+				Content: message author's second name
 
-				Variants:
-					User cannot enter: (empty string)
+				Example:
+					Mikheev
 
-					User can enter:
+			#?MESSAGECONTENT?#
 
-						<a class="btn btn-success" href="#$ROOMENTERLINK$#"><i class="icon-arrow-up icon-white"></i>Enter</a>
+				Content: message content
 
-				Parameters:
+				Example:
+					sample message
 
-					#$ROOMENTERLINK$#
+	#!USERLIST#!
 
-						Content: room enter link
+		Content: List of users allowed to room
 
-						Example:
-							room.html?name=Common_chat
-							room.html?name=Common_chat&act=enter
+		Row:
+			#?ICONOWNER?# #?ICONADMIN?#  <font color="#?FONTUSERCOLOR?#">#?USRNAME?#</font> ( #?USRFIRSTNAME?# #?USRSECONDNAME?#, <font color="#00f">#?USRPOST?#</font> )<br>
 
-			#?ROOMMODIFYBUTTON?#
+		Parameters:
 
-				Content: button to modify the room
+			#?ICONOWNER?#
 
-				Variants:
-					User cannot modify: (empty string)
-
-					User can modify:
-
-						<a class="btn btn-warning" href="#$ROOMMODIFYLINK$#"><i class="icon-wrench icon-white"></i>Modify</a>
-
-				Parameters:
-
-					#$ROOMMODIFYLINK$#
-
-						Content: room modify link
-
-						Example:
-							modifyroom.html?name=Common_chat
-							room.html?name=Common_chat&act=modify
-
-			#?ROOMDELETEBUTTON?#
-
-				Content: button to delete the room
+				Content: Owner user icon
 
 				Variants:
-					User cannot delete: (empty string)
 
-					User can delete:
+					User is not room owner: (empty string)
 
-						<a class="btn btn-danger" href="javascript:deleteAgreement('#$ROOMNAME$#','#$ROOMDELETELINK$#')"><i class="icon-remove icon-white" ></i>Delete</a>
+					User is room owner:
+						<i class="icon-user"></i>
 
-				Parameters:
-					#$ROOMNAME$#
+			#?ICONADMIN?#
 
-						Content: room name
+				Content: Admin user icon
 
-						Example:
-							Common_Chat
+				Variants:
 
-					#$ROOMDELETELINK$#
+					User is not admin: (empty string)
 
-						Content: link to delete room
+					User is admin:
+						<i class="icon-wrench"></i>
 
-						Example:
-							deleteroom.html?name=Common_chat
-							room.html?name=Common_chat&act=delete
+			#?FONTUSERCOLOR?#
+
+				Content: color of username
+
+				Variants:
+					
+					User is admin:
+						#d4f
+
+					User is room owner, but not admin:
+						#0cb
+
+					Else:
+						#081
+
+			#?USRNAME?#
+
+				Content: username
+
+				Example:
+					kron22
+
+			#?USRFIRSTNAME?#
+
+				Content: user's first name
+
+				Example:
+					Alexandr
+
+			#?USRSECONDNAME?#
+
+				Content: user's second name
+
+				Example:
+					Mikheev
+
+			#?USRPOST?#
+
+				Content: user's position
+
+				Example:
+					Software Developer
+
+
 !-->
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 		 pageEncoding="UTF-8"%>
@@ -240,26 +249,29 @@
 <html>
 <head>
 	<title>Bat Chat</title>
-	<link href="<c:url value="css/bootstrap.css"/>" rel="stylesheet">
-	<link href="<c:url value="css/style.css"/>" rel="stylesheet">
-	<script src="<c:url value="js/jquery-1.11.3.min.js" />"></script>
-	<script src="<c:url value="js/bootstrap.js" />"></script>
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+	<script type="text/javascript" src="js/bootstrap.js"></script>
 </head>
 
 <script type="text/javascript">
-	function deleteAgreement( roomName, roomDeleteLink )
-	{
-		document.getElementById('modalMessage').innerHTML = 'Are you sure you want to delete room <font color="red">' + roomName + '</font>?';
-		document.getElementById('modalftr2').innerHTML = '<a class="btn btn-success" data-dismiss="modal" aria-hidden="true" href="' + roomDeleteLink + '" >Yes</a> <a class="btn btn-danger" data-dismiss="modal" aria-hidden="true">No</a>';
-		$('#myModal').modal();
+	roomname = '#!ROOMNAME!#';
+
+	function messageInputKeyCheck( keyboardInfo ){
+		if( keyboardInfo.keyCode == 13 ) messageSend();
 	}
+
+	function messageSend(){
+		document.getElementById('messageInput').value = '';
+	}
+
 	function formSubmit() {
 		document.getElementById("logoutForm").submit();
 	}
 </script>
 
 <body id="thebody">
-
 	<!-- scrt for log out -->
 	<form action="/logout" method="post" id="logoutForm">
 		<input type="hidden"
@@ -281,7 +293,7 @@
 						</a>
 						<ul class="dropdown-menu" role="menu">
 							<li>
-								<a id="get" href="/roomlist" tabindex="-1">
+								<a href="/roomlist" tabindex="-1">
 									<i class="icon-th-list"></i>
 									Room List
 								</a>
@@ -358,28 +370,21 @@
 	</div>
 
 	<!-- Content !-->
-	<div id="content"></div>
 	<div class="container">
 		<div class="span12" id="allcontent">
-			<table class="table table-hover table-striped table-bordered">
-				<thead id="roomlisthead">
-					<tr>
-						<th>Room Name</th>
-						<th>Owner</th>
-						<th>Access Mode</th>
-						<th>Actions</th>
-					</tr>
-				</thead>
-				<tbody id="roomlistbody">
-					#!ROOMLIST!#
-				</tbody>
-			</table>
-
-			<!-- Modal element !-->
-			<div class="modal hide fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-				<div class="modal-body" id="modalMessage">
+			<h3 id="roomname">
+				Room #!ROOMNAME!#
+			</h3>
+			<div class="container">
+				<div class="well span8" style="height: 400px; overflow-y: scroll; text-align: left; word-wrap: break-word;" id="messagelist">
+					#!MESSAGELIST!#
 				</div>
-				<div class="modal-footer" id="modalFooter">
+				<div class="well span2" style="height:400px; overflow-y: scroll; overflow-x: scroll; font-size: 9pt; text-align: left;" id="roomuserlist">
+					#!USERLIST!#
+				</div>
+				<div class="container" id="messageform">
+					<input type="text" class="span8 search-query" id="messageInput" placeholder="Your message" onkeyup="messageInputKeyCheck(event)">
+					<button class="btn btn-primary" id="messagesubmit" onclick="messageSend()">Send</button>
 				</div>
 			</div>
 		</div>

@@ -103,131 +103,44 @@
 			modifyuser.html
 			admin.html?mode=modify
 
-	#!ROOMLIST!#
+	#!ADMINSTATUS!#
 
-		Content: Room List
+		Content: info about administrator status
 
-		Row:
-			<tr class="#?TRCLASS?#">
-				<td>#?ROOMNAME?#</td>
-				<td>#?ROOMOWNER?#</td>
-				<td>#?ROOMACCESSMODE>#</td>
-				<td>
-					#?ROOMENTERBUTTON?#
-					#?ROOMMODIFYBUTTON?#
-					#?ROOMDELETEBUTTON?#
-				</td>
-			</tr>
+		Variants:
 
-		Row Parameters:
+			User is not admin: (empty string)
 
-			#?TRCLASS?#
+			User is admin:
+				<div class="control-group">
+					<p class="text-error">
+						<button class="btn btn-small"  rel="popover" data-placement="right" data-trigger="hover" title="Administrator rights" data-content="Administrator can enter every private room, modify or delete every room. Also administrator can create users, modify or delete rhem.">
+							<i class="icon-wrench" ></i>
+						</button>
+						Administrator
+					</p>
+				</div>
 
-				Content: row class
+	#!USERFIRSTNAME!#
 
-				Variants:
-					User can modify and delete room:
+		Content: user's first name
 
-						info
+		Example:
+			Alexandr
 
-					User can only enter the room:
+	#!USERSECONDNAME!#
 
-						success
+		Content: user's second name
 
-					User cannot even enter the room:
+		Example:
+			Mikheev
 
-						error
+	#!USERPOST!#
 
-			#?ROOMNAME?#
+		Content: user's post
 
-				Content: room name
-
-				Example:
-					Common_chat
-
-			#?ROOMOWNER?#
-
-				Content: name of the room's owner
-
-				Example:
-					kron22
-
-			#?ROOMACCESSMODE?#
-
-				Content: room access mode
-
-				Variants:
-					private
-					public
-
-			#?ROOMENTERBUTTON?#
-
-				Content: button to enter the room
-
-				Variants:
-					User cannot enter: (empty string)
-
-					User can enter:
-
-						<a class="btn btn-success" href="#$ROOMENTERLINK$#"><i class="icon-arrow-up icon-white"></i>Enter</a>
-
-				Parameters:
-
-					#$ROOMENTERLINK$#
-
-						Content: room enter link
-
-						Example:
-							room.html?name=Common_chat
-							room.html?name=Common_chat&act=enter
-
-			#?ROOMMODIFYBUTTON?#
-
-				Content: button to modify the room
-
-				Variants:
-					User cannot modify: (empty string)
-
-					User can modify:
-
-						<a class="btn btn-warning" href="#$ROOMMODIFYLINK$#"><i class="icon-wrench icon-white"></i>Modify</a>
-
-				Parameters:
-
-					#$ROOMMODIFYLINK$#
-
-						Content: room modify link
-
-						Example:
-							modifyroom.html?name=Common_chat
-							room.html?name=Common_chat&act=modify
-
-			#?ROOMDELETEBUTTON?#
-
-				Content: button to delete the room
-
-				Variants:
-					User cannot delete: (empty string)
-
-					User can delete:
-
-						<a class="btn btn-danger" href="javascript:deleteAgreement('#$ROOMNAME$#','#$ROOMDELETELINK$#')"><i class="icon-remove icon-white" ></i>Delete</a>
-
-				Parameters:
-					#$ROOMNAME$#
-
-						Content: room name
-
-						Example:
-							Common_Chat
-
-					#$ROOMDELETELINK$#
-
-						Content: link to delete room
-
-						Example:
-							deleteroom.html?name=Common_chat
-							room.html?name=Common_chat&act=delete
+		Example:
+			Software Developer
 !-->
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 		 pageEncoding="UTF-8"%>
@@ -240,26 +153,23 @@
 <html>
 <head>
 	<title>Bat Chat</title>
-	<link href="<c:url value="css/bootstrap.css"/>" rel="stylesheet">
-	<link href="<c:url value="css/style.css"/>" rel="stylesheet">
-	<script src="<c:url value="js/jquery-1.11.3.min.js" />"></script>
-	<script src="<c:url value="js/bootstrap.js" />"></script>
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+	<script type="text/javascript" src="js/bootstrap.js"></script>
 </head>
 
+
 <script type="text/javascript">
-	function deleteAgreement( roomName, roomDeleteLink )
-	{
-		document.getElementById('modalMessage').innerHTML = 'Are you sure you want to delete room <font color="red">' + roomName + '</font>?';
-		document.getElementById('modalftr2').innerHTML = '<a class="btn btn-success" data-dismiss="modal" aria-hidden="true" href="' + roomDeleteLink + '" >Yes</a> <a class="btn btn-danger" data-dismiss="modal" aria-hidden="true">No</a>';
-		$('#myModal').modal();
-	}
+	$(function(){
+		$("[rel='popover']").popover( { delay: { show: 100, hide: 100 } } );
+	});
 	function formSubmit() {
 		document.getElementById("logoutForm").submit();
 	}
 </script>
 
 <body id="thebody">
-
 	<!-- scrt for log out -->
 	<form action="/logout" method="post" id="logoutForm">
 		<input type="hidden"
@@ -281,7 +191,7 @@
 						</a>
 						<ul class="dropdown-menu" role="menu">
 							<li>
-								<a id="get" href="/roomlist" tabindex="-1">
+								<a href="/roomlist" tabindex="-1">
 									<i class="icon-th-list"></i>
 									Room List
 								</a>
@@ -358,29 +268,21 @@
 	</div>
 
 	<!-- Content !-->
-	<div id="content"></div>
 	<div class="container">
 		<div class="span12" id="allcontent">
-			<table class="table table-hover table-striped table-bordered">
-				<thead id="roomlisthead">
-					<tr>
-						<th>Room Name</th>
-						<th>Owner</th>
-						<th>Access Mode</th>
-						<th>Actions</th>
-					</tr>
-				</thead>
-				<tbody id="roomlistbody">
-					#!ROOMLIST!#
-				</tbody>
-			</table>
-
-			<!-- Modal element !-->
-			<div class="modal hide fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-				<div class="modal-body" id="modalMessage">
-				</div>
-				<div class="modal-footer" id="modalFooter">
-				</div>
+			<h3>User <c:out value="${pageContext.request.remoteUser}"></c:out></h3>
+			#!ADMINSTATUS!#
+			<div class="control-group">
+				<p class="text-info">
+					<i class="icon-font"></i>
+						<c:out value="${pageContext.request.remoteUser}"></c:out> #!USERSECONDNAME!#
+				</p>
+			</div>
+			<div class="control-group">
+				<p class="text-success">
+					<i class="icon-user"></i>
+					#!USERPOST!#
+				</p>
 			</div>
 		</div>
 	</div>

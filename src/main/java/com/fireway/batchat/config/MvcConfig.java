@@ -1,13 +1,15 @@
-package com.fireway.batchat.configuration;
+package com.fireway.batchat.config;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @Configuration
+@ComponentScan(basePackages = {"com.fireway.batchat.mvc"})
 public class MvcConfig extends WebMvcConfigurerAdapter {
 
     @Override
@@ -16,16 +18,11 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
         registry.addViewController("/login").setViewName("login");
         registry.addViewController("/403").setViewName("403");
         registry.addViewController("/roomlist").setViewName("roomlist");
-    }
-
-    @Bean(name = "dataSource")
-    public DriverManagerDataSource dataSource() {
-        DriverManagerDataSource driverManagerDataSource = new DriverManagerDataSource();
-        driverManagerDataSource.setDriverClassName("com.mysql.jdbc.Driver");
-        driverManagerDataSource.setUrl("jdbc:mysql://localhost:3306/springdb");
-        driverManagerDataSource.setUsername("root");
-        driverManagerDataSource.setPassword("root");
-        return driverManagerDataSource;
+        registry.addViewController("/myroomlist").setViewName("roomlist");
+        registry.addViewController("/createroom").setViewName("createroom");
+        registry.addViewController("/createuser").setViewName("createuser");
+        registry.addViewController("/modifyuser").setViewName("modifyuser");
+        registry.addViewController("/userinfo").setViewName("userinfo");
     }
 
     @Bean

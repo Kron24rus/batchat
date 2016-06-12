@@ -1,9 +1,7 @@
-/home/kron/projects/Java/JavaSimple/webchat/src/main/java/com/fireway/batchat/domain/User.java
-/home/kron/projects/Java/JavaSimple/webchat/src/main/java/com/fireway/batchat/domain/UserRepository.java
-/home/kron/projects/Java/JavaSimple/webchat/src/main/java/com/fireway/batchat/domain/UserRoleRepository.java
+/home/kron/projects/Java/JavaSimple/webchat/src/main/java/com/fireway/batchat/config/WebSpringSecurityInit.java
+/home/kron/projects/Java/JavaSimple/webchat/src/main/java/com/fireway/batchat/config/MvcConfig.java
 /home/kron/projects/Java/JavaSimple/webchat/src/main/java/com/fireway/batchat/Application.java
-/home/kron/projects/Java/JavaSimple/webchat/src/main/java/com/fireway/batchat/security/CustomUserDetailsService.java
-/home/kron/projects/Java/JavaSimple/webchat/src/main/java/com/fireway/batchat/configuration/WebSecurityConfig.java
-/home/kron/projects/Java/JavaSimple/webchat/src/main/java/com/fireway/batchat/security/CustomUserDetails.java
-/home/kron/projects/Java/JavaSimple/webchat/src/main/java/com/fireway/batchat/domain/UserRole.java
-/home/kron/projects/Java/JavaSimple/webchat/src/main/java/com/fireway/batchat/configuration/MvcConfig.java
+/home/kron/projects/Java/JavaSimple/webchat/src/main/java/com/fireway/batchat/config/AuthenticationProviderConfig.java
+/home/kron/projects/Java/JavaSimple/webchat/src/main/java/com/fireway/batchat/mvc/controller/BaseController.java
+/home/kron/projects/Java/JavaSimple/webchat/src/main/java/com/fireway/batchat/config/WebConfig.java
+/home/kron/projects/Java/JavaSimple/webchat/src/main/java/com/fireway/batchat/config/WebSecurityConfig.java
