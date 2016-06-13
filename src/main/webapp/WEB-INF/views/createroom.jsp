@@ -262,7 +262,7 @@
 						</a>
 						<ul class="dropdown-menu" role="menu">
 							<li>
-								<a href="/userinfo" tabindex="-1">
+								<a href="/userinfo?username=${pageContext.request.userPrincipal.name}" tabindex="-1">
 									<i class="icon-user"></i>
 									User Info
 								</a>

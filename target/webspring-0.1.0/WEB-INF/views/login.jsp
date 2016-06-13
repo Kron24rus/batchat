@@ -36,24 +36,6 @@
 		<div class="navbar-inner">
 			<div class="container" style="width: auto;">
 				<a class="brand" style="color: #fff;"> &nbsp;Bat Chat</a>
-				<ul class="nav" role="navigation">
-					<li class="dropdown">
-						<a class="dropdown-toggle" id="username" role="button" style="color: #333;">
-							<i class="icon-th-list"></i>
-							Rooms
-							<b class="caret"></b>
-						</a>
-					</li>
-				</ul>
-				<ul class="nav" role="navigation">
-					<li class="dropdown">
-						<a class="dropdown-toggle" id="username" role="button" style="color: #333;">
-							<i class="icon-wrench"></i>
-							Admin Tools
-							<b class="caret"></b>
-						</a>
-					</li>
-				</ul>
 				<ul class="nav pull-right" role="navigation">
 					<li class="dropdown">
 						<a class="dropdown-toggle" id="username" role="button" style="color: #333;"> 
@@ -84,7 +66,7 @@
 					</c:when>
 					<c:otherwise>
 						<div class="control-group" id="loginmsg">
-							Enter login and password
+							Enter username and password
 						</div>
 					</c:otherwise>
 				</c:choose>

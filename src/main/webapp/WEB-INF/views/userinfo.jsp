@@ -243,12 +243,12 @@
 					<li class="dropdown" align="left">
 						<a class="dropdown-toggle" id="username" role="button" data-toggle="dropdown"  style="color: #fff;"> 
 							<i class="icon-user icon-white"></i>
-								<c:out value="${pageContext.request.remoteUser}"></c:out>
+								${pageContext.request.userPrincipal.name}
 							<b class="caret"></b>
 						</a>
 						<ul class="dropdown-menu" role="menu">
 							<li>
-								<a href="/userinfo" tabindex="-1">
+								<a href="/userinfo?username=${pageContext.request.userPrincipal.name}" tabindex="-1">
 									<i class="icon-user"></i>
 									User Info
 								</a>
@@ -271,17 +271,25 @@
 	<div class="container">
 		<div class="span12" id="allcontent">
 			<h3>User ${pageContext.request.userPrincipal.name}</h3>
-			#!ADMINSTATUS!#
+			<sec:authorize access="hasRole('ROLE_ADMIN') and isAuthenticated()">
+				<p class="text-error">
+					<button class="btn btn-small" rel="popover" data-placement="right" data-trigger="hover"
+							title="Administrator rights" data-content="Administrator can enter every private room,
+							 modify or delete every room. Also administrator can create users, modify or delete rhem.">
+						<i class="icon-wrench" ></i>
+					</button> Administrator
+				</p>
+			</sec:authorize>
 			<div class="control-group">
 				<p class="text-info">
 					<i class="icon-font"></i>
-					#!USERFIRSTNAME!# #!USERSECONDNAME!#
+					${firstname} ${secondname}
 				</p>
 			</div>
 			<div class="control-group">
 				<p class="text-success">
 					<i class="icon-user"></i>
-					#!USERPOST!#
+					${userpost}
 				</p>
 			</div>
 		</div>

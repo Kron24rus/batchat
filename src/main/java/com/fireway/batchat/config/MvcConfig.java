@@ -9,7 +9,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @Configuration
-@ComponentScan(basePackages = {"com.fireway.batchat.mvc"})
 public class MvcConfig extends WebMvcConfigurerAdapter {
 
     @Override
