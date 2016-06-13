@@ -134,7 +134,7 @@ function fullinput_check()
 
 <div class="container">
 	<div class="span12" id="allcontent">
-		<h3>Create user</h3>
+		<h3>${actiononuser}</h3>
 		<div class="control-group">
 			<div class="input-prepend">
 				<span class="add-on">
@@ -175,7 +175,7 @@ function fullinput_check()
 			</div>
 		</div>
 		<div class="control-group" id="createuserbutton">
-			<button class="btn btn-primary disabled" disabled="disabled" onclick="usercreate()">Create</button>
+			<button class="btn btn-primary disabled" disabled="disabled" onclick="usercreate()">${buttonaction}</button>
 		</div>
 	</div>
 </div>

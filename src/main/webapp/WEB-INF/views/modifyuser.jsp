@@ -3,6 +3,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <!doctype html>
 
@@ -122,37 +123,50 @@
 					<th>User Name</th>
 					<th>First & second name</th>
 					<th>Post</th>
-					<th>Is admin</th>
+					<th>Role</th>
 					<th>Actions</th>
 				</tr>
+				<c:forEach items="${userlist}" var="item">
+
 				<tr>
 					<td>
-						#!USERNAME!#
+						<c:out value="${item.userName}"></c:out>
 					</td>
 					<td>
-						#!FIRSTSECONDNAME!#
+						<c:out value="${item.getUserInfo().firstName}"></c:out>
+						<c:out value="${item.getUserInfo().secondName}"></c:out>
 					</td>
 					<td>
-						#!POST!#
+						<c:out value="${item.getUserInfo().getPost().postName}"></c:out>
 					</td>
 					<td>
-						#!ISADMIN!#
+						<c:forEach items="${item.getRoles()}" var="role">
+							<c:if test="${role.role=='ROLE_ADMIN'}">
+								<span class="text-error">Admin</span>
+							</c:if>
+							<c:if test="${role.role=='ROLE_USER'}">
+								<span class="text-info">User</span>
+							</c:if>
+						</c:forEach>
 					</td>
 					<td>
-						<button class="btn btn-success">
+						<a class="btn btn-success">
 							<i class="icon-refresh icon-white"></i>
 							Reset pass
-						</button>
-						<button class="btn btn-warning">
+						</a>
+						<a class="btn btn-warning" href="/modcurrentuser?username=${item.userName}">
 							<i class="icon-wrench icon-white"></i>
 							Modify
-						</button>
-						<button class="btn btn-danger">
+						</a>
+						<c:if test="${pageContext.request.userPrincipal.name != item.userName}">
+						<a class="btn btn-danger" href="/deleteuser?username=${item.userName}">
 							<i class="icon-remove icon-white"></i>
 							Delete
-						</button>
+						</a>
+						</c:if>
 					</td>
 				</tr>
+				</c:forEach>
 			</thead>
 			<tbody id="userlistbody"></tbody>
 		</table>
