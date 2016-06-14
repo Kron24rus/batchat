@@ -30,12 +30,12 @@ function fullinput_check()
 	str = input_check('usernameinput');
 	str2 = input_check('fnameinput');
 	str3 = input_check('snameinput');
-	str4 = input_check('postinput');
+	str4 = input_check('passwordinput');
 
-	if( str == '' || str2 == '' || str3 == '' || str4 == '' ) 
+	if( str == '' || str2 == '' || str3 == '' || str4 == '' )
 		document.getElementById('createuserbutton').innerHTML = '<button class="btn btn-primary disabled" disabled="disabled" onclick="usercreate()">Create</button>';
 	else
-		document.getElementById('createuserbutton').innerHTML = '<button class="btn btn-primary" onclick="usercreate()">Create</button>';
+		document.getElementById('createuserbutton').innerHTML = '<button class="btn btn-primary" onclick="usercreate()">${buttonaction}</button>';
 }
 </script>
 
@@ -135,48 +135,58 @@ function fullinput_check()
 <div class="container">
 	<div class="span12" id="allcontent">
 		<h3>${actiononuser}</h3>
-		<div class="control-group">
-			<div class="input-prepend">
-				<span class="add-on">
-					<i class="icon-user"></i>
-				</span>
-				<input class="span3" id="usernameinput" type="text" placeholder="User name" onkeyup="fullinput_check()" onchange="fullinput_check()">
+		<form:form action="${formaction}" method="post" modelAttribute="userForm">
+			<div class="control-group">
+				<div class="input-prepend">
+					<span class="add-on">
+						<i class="icon-user"></i>
+					</span>
+					<form:input path="userName" cssClass="span3" id="usernameinput" type="text" placeholder="User name" onkeyup="fullinput_check()" onchange="fullinput_check()"/>
+				</div>
 			</div>
-		</div>
-		<div class="control-group">
-			<div class="input-prepend">
-				<span class="add-on">
-					<i class="icon-font"></i>
-				</span>
-				<input class="span3" id="fnameinput" type="text" placeholder="First name" onkeyup="fullinput_check()" onchange="fullinput_check()">
+			<div class="control-group">
+				<div class="input-prepend">
+					<span class="add-on">
+						<i class="icon-asterisk"></i>
+					</span>
+					<form:password path="password" cssClass="span3" id="passwordinput" placeholder="User password" onkeyup="fullinput_check()" onchange="fullinput_check()"/>
+				</div>
 			</div>
-		</div>
-		<div class="control-group">
-			<div class="input-prepend">
-				<span class="add-on">
-					<i class="icon-font"></i>
-				</span>
-				<input class="span3" id="snameinput" type="text" placeholder="Second name" onkeyup="fullinput_check()" onchange="fullinput_check()">
+			<div class="control-group">
+				<div class="input-prepend">
+					<span class="add-on">
+						<i class="icon-font"></i>
+					</span>
+					<form:input path="firstName" cssClass="span3" id="fnameinput" type="text" placeholder="First name" onkeyup="fullinput_check()" onchange="fullinput_check()"/>
+				</div>
 			</div>
-		</div>
-		<div class="control-group">
-			<div class="input-prepend">
-				<span class="add-on">
-					<i class="icon-tags"></i>
-				</span>
-				<input class="span3" id="postinput" type="text" placeholder="Post" onkeyup="fullinput_check()" onchange="fullinput_check()">
+			<div class="control-group">
+				<div class="input-prepend">
+					<span class="add-on">
+						<i class="icon-font"></i>
+					</span>
+					<form:input path="secondName" cssClass="span3" id="snameinput" type="text" placeholder="Second name" onkeyup="fullinput_check()" onchange="fullinput_check()"/>
+				</div>
 			</div>
-		</div>
-		<div class="control-group">
-			<div class="input-prepend">
-				<label class="checkbox">
-					<input type="checkbox" id="isuseradmin"> Admin
-				</label>
+			<div class="control-group">
+				<div class="input-prepend">
+					<span class="add-on">
+						<i class="icon-tags"></i>
+					</span>
+					<form:select path="postName" items="${postList}" class="span3"/>
+				</div>
 			</div>
-		</div>
-		<div class="control-group" id="createuserbutton">
-			<button class="btn btn-primary disabled" disabled="disabled" onclick="usercreate()">${buttonaction}</button>
-		</div>
+			<div class="control-group">
+				<div class="input-prepend">
+					<label class="checkbox">
+						<form:checkbox path="role" id="isuseradmin"/> Admin
+					</label>
+				</div>
+			</div>
+			<div class="control-group" id="createuserbutton">
+				<button class="btn btn-primary disabled" disabled="disabled" onclick="usercreate()">${buttonaction}</button>
+			</div>
+		</form:form>
 	</div>
 </div>
 

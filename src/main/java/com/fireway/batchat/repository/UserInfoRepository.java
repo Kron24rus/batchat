@@ -9,4 +9,5 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface UserInfoRepository extends CrudRepository<UserInfo, Long> {
+    public UserInfo findByUserId(Long userId);
 }

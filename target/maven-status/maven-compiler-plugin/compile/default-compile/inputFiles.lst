@@ -1,4 +1,5 @@
 /home/kron/projects/Java/JavaSimple/webchat/src/main/java/com/fireway/batchat/config/MvcConfig.java
+/home/kron/projects/Java/JavaSimple/webchat/src/main/java/com/fireway/batchat/entity/dto/UserDTO.java
 /home/kron/projects/Java/JavaSimple/webchat/src/main/java/com/fireway/batchat/entity/Post.java
 /home/kron/projects/Java/JavaSimple/webchat/src/main/java/com/fireway/batchat/controller/BaseController.java
 /home/kron/projects/Java/JavaSimple/webchat/src/main/java/com/fireway/batchat/entity/Room.java

@@ -4,20 +4,21 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * Created by kron on 13.06.16.
  */
 @Entity
 @Table(name = "user_info")
-public class UserInfo {
+public class UserInfo implements Serializable {
 
     @Id
-    @GeneratedValue(generator = "customForeignGenerator")
-    @GenericGenerator(name = "customForeignGenerator", strategy = "foreign",
-            parameters = @Parameter(name = "property", value = "users"))
-    @Column(name = "user_id", unique = true, nullable = false)
-    private Long userId;
+    @Column(name = "user_id")
+    @GeneratedValue(generator = "customGenerator")
+    @GenericGenerator(name = "customGenerator", strategy = "foreign",
+        parameters = @Parameter(name = "property", value = "user"))
+    private long userId;
 
     @Column(name = "first_name")
     private String firstName;
@@ -25,7 +26,7 @@ public class UserInfo {
     @Column(name = "second_name")
     private String secondName;
 
-    @OneToOne(fetch = FetchType.EAGER, mappedBy = "userInfo")
+    @OneToOne
     @PrimaryKeyJoinColumn
     private User user;
 
@@ -34,6 +35,14 @@ public class UserInfo {
     private Post post;
 
     public UserInfo() {
+    }
+
+    public long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(long userId) {
+        this.userId = userId;
     }
 
     public Post getPost() {
@@ -52,14 +61,6 @@ public class UserInfo {
         this.user = user;
     }
 
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
     public String getFirstName() {
         return firstName;
     }
@@ -74,5 +75,15 @@ public class UserInfo {
 
     public void setSecondName(String secondName) {
         this.secondName = secondName;
+    }
+
+    @Override
+    public String toString() {
+        return "UserInfo{" +
+                ", firstName='" + firstName + '\'' +
+                ", secondName='" + secondName + '\'' +
+                ", user=" + user.getUserName() +
+                ", post=" + post.getPostName() +
+                '}';
     }
 }
