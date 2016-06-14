@@ -332,10 +332,17 @@
 								<c:out value="${item.user.userName}"></c:out>
 							</td>
 							<td>
-								#!ACCESS!#
+								<c:choose>
+									<c:when test="${item.isPrivate()==true}">
+										private
+									</c:when>
+									<c:otherwise>
+										public
+									</c:otherwise>
+								</c:choose>
 							</td>
 							<td>
-								<a class="btn btn-success">
+								<a class="btn btn-success" href="#">
 									<i class="icon-arrow-up icon-white"></i>
 									Enter
 								</a>
@@ -361,10 +368,17 @@
 									<c:out value="${item.user.userName}"></c:out>
 								</td>
 								<td>
-									#!ACCESS!#
+									<c:choose>
+										<c:when test="${item.isPrivate()==true}">
+											private
+										</c:when>
+										<c:otherwise>
+											public
+										</c:otherwise>
+									</c:choose>
 								</td>
 								<td>
-									<a class="btn btn-success">
+									<a class="btn btn-success" href="#">
 										<i class="icon-arrow-up icon-white"></i>
 										Enter
 									</a>

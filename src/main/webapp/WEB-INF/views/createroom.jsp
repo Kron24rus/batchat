@@ -286,19 +286,19 @@
 		<div class="span12" id="allcontent">
 			<h3>Create room</h3>
 
-			<form>
+			<form:form action="${formaction}" method="post" modelAttribute="roomForm">
 				<div class="control-group" id="roomNameContainer">
 					<div class="input-prepend">
 						<span class="add-on">
 							<i class="icon-font"></i>
 						</span>
-						<input class="span3" id="roomNameInput" type="text" placeholder="Room name" onchange="roomNameCheck()" onkeyup="roomNameCheck()">
+						<form:input path="roomName" class="span3" id="roomNameInput" type="text" placeholder="Room name" onchange="roomNameCheck()" onkeyup="roomNameCheck()"/>
 					</div><br>
 					<span class="help-inline" id="roomNameMessage"></span>
 				</div>
 				<div class="control-group"><div class="input-prepend">
 					<label class="checkbox">
-						<input type="checkbox" id="isRoomPrivate" value="isRoomPrivate" onchange="toggleUserList()">
+						<form:checkbox path="access" id="isRoomPrivate" value="isRoomPrivate" onchange="toggleUserList()"/>
 							Private
 						</label>
 					</div>
@@ -313,7 +313,7 @@
 				<div class="control-group" id="createroombutton">
 					<input type="submit" class="btn btn-primary disabled" disabled value="Create" id="createRoomButton">
 				</div>
-			</form>
+			</form:form>
 
 			<div class="modal hide fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 				<div class="modal-body" id="modalmsg">

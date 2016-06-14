@@ -1,6 +1,7 @@
 package com.fireway.batchat.controller;
 
 import com.fireway.batchat.entity.*;
+import com.fireway.batchat.entity.dto.RoomDTO;
 import com.fireway.batchat.entity.dto.UserDTO;
 import com.fireway.batchat.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,6 +58,22 @@ public class BaseController {
         model.addObject("roomlist", rooms);
         model.addObject("rooms", "My rooms");
         model.setViewName("roomlist");
+        return model;
+    }
+
+    @RequestMapping(value = "/createroom", method = RequestMethod.GET)
+    public ModelAndView createRoomPage() {
+        RoomDTO roomForm = new RoomDTO();
+        ModelAndView model = new ModelAndView();
+        model.addObject("roomForm", roomForm);
+        model.setViewName("createroom");
+        return model;
+    }
+
+    @RequestMapping(value = "/modifyroom", method = RequestMethod.GET)
+    public ModelAndView updateRoomPage() {
+        ModelAndView model = new ModelAndView();
+        model.setViewName("createroom");
         return model;
     }
 
@@ -166,8 +183,10 @@ public class BaseController {
         user.setUserId(userRepository.findByUserName(userDto.getUserName()).getUserId());
         user.setUserName(userDto.getUserName());
         user.setEnabled(1);
-        if (null != userDto.getPassword()) {
+        if (userDto.getPassword().length() > 0) {
             user.setPassword(new BCryptPasswordEncoder().encode(userDto.getPassword()));
+        } else {
+            user.setPassword(userRepository.findByUserName(userDto.getUserName()).getPassword());
         }
         Role role;
         if (userDto.getRole()) {

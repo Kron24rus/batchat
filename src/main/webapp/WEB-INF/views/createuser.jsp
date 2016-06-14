@@ -154,7 +154,7 @@ function fullinput_check()
 						<form:input path="userName" cssClass="span3" id="usernameinput" type="text" placeholder="User name" onkeyup="fullinput_check()" onchange="fullinput_check()" />
 					</c:if>
 					<c:if test="${requestScope['javax.servlet.forward.servlet_path']=='/modcurrentuser'}">
-						<form:input path="userName" cssClass="span3" readonly="true"></form:input>
+						<form:input path="userName" cssClass="span3" readonly="true"/>
 					</c:if>
 				</div>
 			</div>
