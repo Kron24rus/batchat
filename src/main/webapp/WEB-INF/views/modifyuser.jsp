@@ -126,7 +126,9 @@
 					<th>Role</th>
 					<th>Actions</th>
 				</tr>
-				<c:forEach items="${userlist}" var="item">
+			</thead>
+			<tbody id="userlistbody">
+			<c:forEach items="${userlist}" var="item">
 
 				<tr>
 					<td>
@@ -150,25 +152,24 @@
 						</c:forEach>
 					</td>
 					<td>
-						<a class="btn btn-success">
-							<i class="icon-refresh icon-white"></i>
-							Reset pass
-						</a>
+						<!--	<a class="btn btn-success">
+                                <i class="icon-refresh icon-white"></i>
+                                Reset pass
+                            </a> -->
 						<a class="btn btn-warning" href="/modcurrentuser?username=${item.userName}">
 							<i class="icon-wrench icon-white"></i>
 							Modify
 						</a>
 						<c:if test="${pageContext.request.userPrincipal.name != item.userName}">
-						<a class="btn btn-danger" href="/deleteuser?username=${item.userName}">
-							<i class="icon-remove icon-white"></i>
-							Delete
-						</a>
+							<a class="btn btn-danger" href="/deleteuser?username=${item.userName}">
+								<i class="icon-remove icon-white"></i>
+								Delete
+							</a>
 						</c:if>
 					</td>
 				</tr>
-				</c:forEach>
-			</thead>
-			<tbody id="userlistbody"></tbody>
+			</c:forEach>
+			</tbody>
 		</table>
 		<div class="modal hide fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 			<div class="modal-body" id="modalmsg2">Are you sure you want to delete this user?</div>

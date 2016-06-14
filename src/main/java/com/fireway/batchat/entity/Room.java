@@ -17,7 +17,19 @@ public class Room {
     @Column(name = "room_name")
     private String roomName;
 
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "owner_id")
+    private User user;
+
     public Room() {
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Long getRoomId() {

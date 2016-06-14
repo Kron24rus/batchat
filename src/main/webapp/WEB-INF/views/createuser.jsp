@@ -27,13 +27,22 @@ function formSubmit() {
 }
 function fullinput_check()
 {
-	str = input_check('usernameinput');
+
 	str2 = input_check('fnameinput');
 	str3 = input_check('snameinput');
-	str4 = input_check('passwordinput');
+	<c:choose>
+		<c:when test="${requestScope['javax.servlet.forward.servlet_path']=='/createuser'}">
+			str4 = input_check('passwordinput');
+			str = input_check('usernameinput');
+		</c:when>
+		<c:otherwise>
+			str4 = 'userpassword'
+			str = 'username'
+		</c:otherwise>
+	</c:choose>
 
 	if( str == '' || str2 == '' || str3 == '' || str4 == '' )
-		document.getElementById('createuserbutton').innerHTML = '<button class="btn btn-primary disabled" disabled="disabled" onclick="usercreate()">Create</button>';
+		document.getElementById('createuserbutton').innerHTML = '<button class="btn btn-primary disabled" disabled="disabled" onclick="usercreate()">${buttonaction}</button>';
 	else
 		document.getElementById('createuserbutton').innerHTML = '<button class="btn btn-primary" onclick="usercreate()">${buttonaction}</button>';
 }
@@ -141,9 +150,15 @@ function fullinput_check()
 					<span class="add-on">
 						<i class="icon-user"></i>
 					</span>
-					<form:input path="userName" cssClass="span3" id="usernameinput" type="text" placeholder="User name" onkeyup="fullinput_check()" onchange="fullinput_check()"/>
+					<c:if test="${requestScope['javax.servlet.forward.servlet_path']=='/createuser'}">
+						<form:input path="userName" cssClass="span3" id="usernameinput" type="text" placeholder="User name" onkeyup="fullinput_check()" onchange="fullinput_check()" />
+					</c:if>
+					<c:if test="${requestScope['javax.servlet.forward.servlet_path']=='/modcurrentuser'}">
+						<form:input path="userName" cssClass="span3" readonly="true"></form:input>
+					</c:if>
 				</div>
 			</div>
+
 			<div class="control-group">
 				<div class="input-prepend">
 					<span class="add-on">
@@ -187,6 +202,9 @@ function fullinput_check()
 				<button class="btn btn-primary disabled" disabled="disabled" onclick="usercreate()">${buttonaction}</button>
 			</div>
 		</form:form>
+		<script>
+			fullinput_check();
+		</script>
 	</div>
 </div>
 

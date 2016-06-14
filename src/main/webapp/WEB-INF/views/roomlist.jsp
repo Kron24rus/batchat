@@ -322,6 +322,66 @@
 				</thead>
 				<tbody id="roomlistbody">
 					<h3>${rooms}</h3>
+					<c:forEach items="${roomlist}" var="item">
+						<c:if test="${pageContext.request.userPrincipal.name == item.user.userName and rooms=='My rooms'}">
+						<tr class="info">
+							<td>
+								<c:out value="${item.roomName}"></c:out>
+							</td>
+							<td>
+								<c:out value="${item.user.userName}"></c:out>
+							</td>
+							<td>
+								#!ACCESS!#
+							</td>
+							<td>
+								<a class="btn btn-success">
+									<i class="icon-arrow-up icon-white"></i>
+									Enter
+								</a>
+								<a class="btn btn-warning" href="#">
+									<i class="icon-wrench icon-white"></i>
+									Modify
+								</a>
+								<c:if test="${pageContext.request.userPrincipal.name == item.user.userName}">
+									<a class="btn btn-danger" href="#">
+										<i class="icon-remove icon-white"></i>
+										Delete
+									</a>
+								</c:if>
+							</td>
+						</tr>
+						</c:if>
+						<c:if test="${rooms=='All rooms'}">
+							<tr class="info">
+								<td>
+									<c:out value="${item.roomName}"></c:out>
+								</td>
+								<td>
+									<c:out value="${item.user.userName}"></c:out>
+								</td>
+								<td>
+									#!ACCESS!#
+								</td>
+								<td>
+									<a class="btn btn-success">
+										<i class="icon-arrow-up icon-white"></i>
+										Enter
+									</a>
+									<a class="btn btn-warning" href="#">
+										<i class="icon-wrench icon-white"></i>
+										Modify
+									</a>
+									<c:if test="${pageContext.request.userPrincipal.name == item.user.userName}">
+										<a class="btn btn-danger" href="#">
+											<i class="icon-remove icon-white"></i>
+											Delete
+										</a>
+									</c:if>
+								</td>
+							</tr>
+						</c:if>
+					</c:forEach>
 				</tbody>
 			</table>
 

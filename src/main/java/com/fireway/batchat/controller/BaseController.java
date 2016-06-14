@@ -1,14 +1,8 @@
 package com.fireway.batchat.controller;
 
-import com.fireway.batchat.entity.Post;
-import com.fireway.batchat.entity.Role;
-import com.fireway.batchat.entity.User;
-import com.fireway.batchat.entity.UserInfo;
+import com.fireway.batchat.entity.*;
 import com.fireway.batchat.entity.dto.UserDTO;
-import com.fireway.batchat.repository.PostRepository;
-import com.fireway.batchat.repository.RoleRepository;
-import com.fireway.batchat.repository.UserInfoRepository;
-import com.fireway.batchat.repository.UserRepository;
+import com.fireway.batchat.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -36,6 +30,8 @@ public class BaseController {
     UserInfoRepository userInfoRepository;
     @Autowired
     PostRepository postRepository;
+    @Autowired
+    RoomRepository roomRepository;
 
     @RequestMapping(value = {"/", "/login**"}, method = {RequestMethod.GET})
     public ModelAndView loginPage() {
@@ -47,6 +43,8 @@ public class BaseController {
     @RequestMapping(value = "/roomlist", method = RequestMethod.GET)
     public ModelAndView allRoomPage() {
         ModelAndView model = new ModelAndView();
+        List<Room> rooms = (List<Room>)roomRepository.findAll();
+        model.addObject("roomlist", rooms);
         model.addObject("rooms", "All rooms");
         model.setViewName("roomlist");
         return model;
@@ -55,6 +53,8 @@ public class BaseController {
     @RequestMapping(value = "/myroomlist", method = RequestMethod.GET)
     public ModelAndView userRoomPage() {
         ModelAndView model = new ModelAndView();
+        List<Room> rooms = (List<Room>)roomRepository.findAll();
+        model.addObject("roomlist", rooms);
         model.addObject("rooms", "My rooms");
         model.setViewName("roomlist");
         return model;
@@ -143,7 +143,6 @@ public class BaseController {
          * Setting User info Entity
          */
         UserInfo userInfo = new UserInfo();
-       // userInfo.setUserId((userRepository.findByUserName(userDto.getUserName()).getUserId()));
         userInfo.setFirstName(userDto.getFirstName());
         userInfo.setSecondName(userDto.getSecondName());
         userInfo.setPost(postRepository.findByPostName(userDto.getPostName()));
@@ -158,8 +157,39 @@ public class BaseController {
     }
 
     @RequestMapping(value = "/updateuser", method = RequestMethod.POST)
-    public ModelAndView updateUser(@ModelAttribute("userForm") UserDTO user) {
+    public ModelAndView updateUser(@ModelAttribute("userForm") UserDTO userDto) {
         ModelAndView model = new ModelAndView();
+        /**
+         * Setting User Entity
+         */
+        User user = new User();
+        user.setUserId(userRepository.findByUserName(userDto.getUserName()).getUserId());
+        user.setUserName(userDto.getUserName());
+        user.setEnabled(1);
+        if (null != userDto.getPassword()) {
+            user.setPassword(new BCryptPasswordEncoder().encode(userDto.getPassword()));
+        }
+        Role role;
+        if (userDto.getRole()) {
+            role = roleRepository.findByRole("ROLE_ADMIN");
+        } else {
+            role = roleRepository.findByRole("ROLE_USER");
+        }
+        List<Role> roles = new LinkedList<Role>();
+        roles.add(role);
+        user.setRoles(roles);
+        userRepository.save(user);
+        /**
+         * Setting User info Entity
+         */
+        UserInfo userInfo = new UserInfo();
+        userInfo.setUserId(user.getUserId());
+        userInfo.setFirstName(userDto.getFirstName());
+        userInfo.setSecondName(userDto.getSecondName());
+        userInfo.setPost(postRepository.findByPostName(userDto.getPostName()));
+        userInfo.setUser(userRepository.findByUserName(userDto.getUserName()));
+        userInfoRepository.save(userInfo);
+
         model.setViewName("redirect:/modifyuser");
         return model;
     }

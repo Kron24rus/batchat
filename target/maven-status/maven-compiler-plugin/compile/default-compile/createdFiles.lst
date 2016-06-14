@@ -12,6 +12,7 @@ com/fireway/batchat/config/MvcConfig.class
 com/fireway/batchat/entity/UserInfo.class
 com/fireway/batchat/entity/dto/UserDTO.class
 com/fireway/batchat/repository/UserInfoRepository.class
+com/fireway/batchat/repository/RoomRepository.class
 com/fireway/batchat/repository/UserRepository.class
 com/fireway/batchat/security/CustomUserDetails.class
 com/fireway/batchat/repository/RoleRepository.class
