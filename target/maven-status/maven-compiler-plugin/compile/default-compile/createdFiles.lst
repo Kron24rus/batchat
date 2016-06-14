@@ -10,6 +10,7 @@ com/fireway/batchat/entity/Post.class
 com/fireway/batchat/entity/Role.class
 com/fireway/batchat/entity/Message.class
 com/fireway/batchat/repository/PostRepository.class
+com/fireway/batchat/entity/chat/MessageEntity.class
 com/fireway/batchat/entity/User.class
 com/fireway/batchat/config/MvcConfig.class
 com/fireway/batchat/entity/chat/Answer.class

@@ -342,20 +342,38 @@
 								</c:choose>
 							</td>
 							<td>
-								<a class="btn btn-success" href="/roomchat">
+								<a class="btn btn-success" href="/roomchat?roomname=${item.roomName}">
 									<i class="icon-arrow-up icon-white"></i>
 									Enter
 								</a>
-								<a class="btn btn-warning" href="#">
-									<i class="icon-wrench icon-white"></i>
-									Modify
-								</a>
-								<c:if test="${pageContext.request.userPrincipal.name == item.user.userName}">
-									<a class="btn btn-danger" href="#">
+								<sec:authorize access="hasRole('ROLE_ADMIN') and isAuthenticated()">
+									<a class="btn btn-warning" href="/modifyroom">
+										<i class="icon-wrench icon-white"></i>
+										Modify
+									</a>
+								</sec:authorize>
+								<sec:authorize access="hasRole('ROLE_USER') and isAuthenticated()">
+									<c:if test="${pageContext.request.userPrincipal.name == item.user.userName}">
+										<a class="btn btn-warning" href="/modifyroom">
+											<i class="icon-wrench icon-white"></i>
+											Modify
+										</a>
+									</c:if>
+								</sec:authorize>
+								<sec:authorize access="hasRole('ROLE_ADMIN') and isAuthenticated()">
+									<a class="btn btn-danger" href="/deleteroom?roomname=${item.roomName}">
 										<i class="icon-remove icon-white"></i>
 										Delete
 									</a>
-								</c:if>
+								</sec:authorize>
+								<sec:authorize access="hasRole('ROLE_USER') and isAuthenticated()">
+									<c:if test="${pageContext.request.userPrincipal.name == item.user.userName}">
+										<a class="btn btn-danger" href="/deleteroom?roomname=${item.roomName}">
+											<i class="icon-remove icon-white"></i>
+											Delete
+										</a>
+									</c:if>
+								</sec:authorize>
 							</td>
 						</tr>
 						</c:if>
@@ -378,20 +396,38 @@
 									</c:choose>
 								</td>
 								<td>
-									<a class="btn btn-success" href="#">
+									<a class="btn btn-success" href="/roomchat?roomname=${item.roomName}">
 										<i class="icon-arrow-up icon-white"></i>
 										Enter
 									</a>
-									<a class="btn btn-warning" href="#">
-										<i class="icon-wrench icon-white"></i>
-										Modify
-									</a>
-									<c:if test="${pageContext.request.userPrincipal.name == item.user.userName}">
-										<a class="btn btn-danger" href="#">
+									<sec:authorize access="hasRole('ROLE_ADMIN') and isAuthenticated()">
+										<a class="btn btn-warning" href="/modifyroom">
+											<i class="icon-wrench icon-white"></i>
+											Modify
+										</a>
+									</sec:authorize>
+									<sec:authorize access="hasRole('ROLE_USER') and isAuthenticated()">
+										<c:if test="${pageContext.request.userPrincipal.name == item.user.userName}">
+											<a class="btn btn-warning" href="/modifyroom">
+												<i class="icon-wrench icon-white"></i>
+												Modify
+											</a>
+										</c:if>
+									</sec:authorize>
+									<sec:authorize access="hasRole('ROLE_ADMIN') and isAuthenticated()">
+										<a class="btn btn-danger" href="/deleteroom?roomname=${item.roomName}">
 											<i class="icon-remove icon-white"></i>
 											Delete
 										</a>
-									</c:if>
+									</sec:authorize>
+									<sec:authorize access="hasRole('ROLE_USER') and isAuthenticated()">
+										<c:if test="${pageContext.request.userPrincipal.name == item.user.userName}">
+											<a class="btn btn-danger" href="/deleteroom?roomname=${item.roomName}">
+												<i class="icon-remove icon-white"></i>
+												Delete
+											</a>
+										</c:if>
+									</sec:authorize>
 								</td>
 							</tr>
 						</c:if>

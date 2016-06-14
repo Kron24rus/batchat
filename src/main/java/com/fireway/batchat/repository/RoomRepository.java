@@ -13,4 +13,5 @@ import java.util.List;
 @Repository
 public interface RoomRepository extends CrudRepository<Room, Long> {
     public List<Room> findByUser(User user);
+    public Room findByRoomName(String roomname);
 }

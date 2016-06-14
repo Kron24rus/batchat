@@ -304,13 +304,25 @@
 					</div>
 				</div>
 				<div class="control-group" id="userListContainer" style="visibility:hidden;">
-					<table>
+					<table class="table table-striped">
 						<tbody>
-							#!PRIVATEUSERLIST!#
+							<c:forEach items="${userList}" var="user">
+								<tr>
+									<c:if test="${user.userName!=pageContext.request.userPrincipal.name}">
+									<td>
+										<span class="text-info text-left">${user.userName}</span>
+										<span>(${user.getUserInfo().firstName} ${user.getUserInfo().secondName}, </span>
+										<span class="text-error">${user.getUserInfo().getPost().postName})</span>
+									</td>
+									<td><form:checkbox cssclass="check-box-table-cell right" path="privateUsers" value="${user.userId}"/></td>
+									</c:if>
+								</tr>
+							</c:forEach>
 						</tbody>
 					</table>
 				</div>
 				<div class="control-group" id="createroombutton">
+					<form:input path="userName" type="hidden" value="${pageContext.request.userPrincipal.name}"/>
 					<input type="submit" class="btn btn-primary disabled" disabled value="Create" id="createRoomButton">
 				</div>
 			</form:form>

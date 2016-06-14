@@ -37,7 +37,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/userinfo").access("isAuthenticated()")
                 .antMatchers("/roomchat").access("isAuthenticated()")
                 .antMatchers("/modcurrentuser").access("hasRole('ROLE_ADMIN') and isAuthenticated()")
-                .antMatchers("/modifyroom").access("isAuthenticated")
+                .antMatchers("/modifyroom").access("isAuthenticated()")
                 .anyRequest().permitAll()
                 .and()
                 .formLogin().loginPage("/login")

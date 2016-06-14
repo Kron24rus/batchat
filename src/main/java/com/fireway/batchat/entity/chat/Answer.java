@@ -4,8 +4,12 @@ package com.fireway.batchat.entity.chat;
  * Created by vladimercury on 6/13/16.
  */
 public class Answer {
-    private String content;
     private String author;
+    private String content;
+
+    public Answer(){
+
+    }
 
     public Answer(String author, String content){
         this.author = author;

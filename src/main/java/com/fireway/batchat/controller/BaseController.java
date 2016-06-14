@@ -1,14 +1,11 @@
 package com.fireway.batchat.controller;
 
 import com.fireway.batchat.entity.*;
-import com.fireway.batchat.entity.chat.*;
 import com.fireway.batchat.entity.dto.RoomDTO;
 import com.fireway.batchat.entity.dto.UserDTO;
 import com.fireway.batchat.repository.*;
+import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.handler.annotation.SendTo;
-import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -67,17 +64,72 @@ public class BaseController {
 
     @RequestMapping(value = "/createroom", method = RequestMethod.GET)
     public ModelAndView createRoomPage() {
+        List<User> users = (List<User>) userRepository.findAll();
         RoomDTO roomForm = new RoomDTO();
         ModelAndView model = new ModelAndView();
+        model.addObject("formaction", "/addroom");
         model.addObject("roomForm", roomForm);
+        model.addObject("userList", users);
         model.setViewName("createroom");
         return model;
     }
 
     @RequestMapping(value = "/modifyroom", method = RequestMethod.GET)
     public ModelAndView updateRoomPage() {
+        RoomDTO roomForm = new RoomDTO();
+        List<User> users = (List<User>) userRepository.findAll();
         ModelAndView model = new ModelAndView();
+        model.addObject("userList", users);
+        model.addObject("roomForm", roomForm);
+        model.addObject("formaction", "/updateroom");
         model.setViewName("createroom");
+        return model;
+    }
+
+    @RequestMapping(value = "/addroom", method = RequestMethod.POST)
+    public ModelAndView addRoom(@ModelAttribute("roomForm") RoomDTO roomDto) {
+        ModelAndView model = new ModelAndView();
+        Room room = new Room();
+        room.setPrivate(roomDto.isAccess());
+        room.setRoomName(roomDto.getRoomName());
+        room.setUser(userRepository.findByUserName(roomDto.getUserName()));
+        if (room.isPrivate()) {
+            List<User> privateUsers = new LinkedList<User>();
+            for (Long id : roomDto.getPrivateUsers()) {
+                privateUsers.add(userRepository.findByUserId(id));
+                System.out.println(userRepository.findByUserId(id).getUserName());
+            }
+            room.setUsers(privateUsers);
+        }
+        roomRepository.save(room);
+        System.out.println(roomDto);
+        model.setViewName("redirect:/roomlist");
+        return model;
+    }
+
+    @RequestMapping(value = "/updateroom", method = RequestMethod.POST)
+    public ModelAndView updateRoom(@ModelAttribute("roomForm") RoomDTO roomDto) {
+        ModelAndView model = new ModelAndView();
+        model.setViewName("redirect:/roomlist");
+        return model;
+    }
+
+    @RequestMapping(value = "/deleteroom", method = RequestMethod.GET)
+    public ModelAndView deleteRoom(@RequestParam(value = "roomname") String roomname) {
+        ModelAndView model = new ModelAndView();
+        Long roomId = roomRepository.findByRoomName(roomname).getRoomId();
+        roomRepository.delete(roomId);
+        List<Room> rooms = (List<Room>)roomRepository.findAll();
+        model.addObject("roomlist", rooms);
+        model.setViewName("redirect:/roomlist");
+        return model;
+    }
+
+    @RequestMapping(value = "/roomchat", method = RequestMethod.GET)
+    public ModelAndView chatPage(@RequestParam(value = "roomname") String roomname) {
+        ModelAndView model = new ModelAndView();
+        model.addObject("roomname", roomname);
+        model.setViewName("roomchat");
         return model;
     }
 
@@ -221,8 +273,14 @@ public class BaseController {
     public ModelAndView deleteUser(@RequestParam(value = "username") String username) {
         ModelAndView model = new ModelAndView();
         Long userId = userRepository.findByUserName(username).getUserId();
-        userRepository.delete(userId);
         List<User> users = (List<User>) userRepository.findAll();
+        try {
+            userRepository.delete(userId);
+        } catch (Exception e) {
+            model.addObject("userlist", users);
+            model.setViewName("/modifyuser");
+            return model;
+        }
         model.addObject("userlist", users);
         model.setViewName("/modifyuser");
         return model;

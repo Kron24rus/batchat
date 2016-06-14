@@ -1,6 +1,7 @@
 package com.fireway.batchat.entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -22,12 +23,14 @@ public class Room {
     @Column(name = "private")
     private boolean Private;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.PERSIST})
     @JoinColumn(name = "owner_id")
     private User user;
 
-    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "rooms")
-    public List<User> users = new LinkedList<User>();
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "room_users", joinColumns = @JoinColumn(name = "room_id", referencedColumnName = "room_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id", referencedColumnName = "user_id"))
+    private List<User> users = new ArrayList<>();
 
     public Room() {
     }

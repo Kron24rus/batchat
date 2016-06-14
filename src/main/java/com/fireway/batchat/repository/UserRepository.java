@@ -11,6 +11,7 @@ import java.util.List;
  */
 @Repository
 public interface UserRepository extends CrudRepository<User, Long> {
+    public User findByUserId(Long userId);
     public User findByUserName(String username);
     public User findRoleByUserName(String username);
     public User findUserInfoByUserName(String username);

@@ -16,6 +16,8 @@
     <script src="js/bootstrap.js"></script>
     <script type="text/javascript">
         var stompClient = null;
+        var roomname = '${roomname}';
+        var username = '${pageContext.request.userPrincipal.name}'
         var usernames = {};
         var colors = [
             "#e32636", "#78dbe2", "#9f2b68",
@@ -31,74 +33,64 @@
             "#01796f", "#006633", "#ffd700",
             "#4b0082", "#1cd3a2", "#884535"
         ];
-
         function sleep(ms) {
             ms += new Date().getTime();
             while (new Date() < ms){}
         }
-
         function setConnected(connected) {
             document.getElementById('response').innerHTML = '';
         }
-
         function connect() {
             var socket = new SockJS('/hello');
             stompClient = Stomp.over(socket);
             stompClient.connect({}, function(frame) {
-                stompClient.subscribe('/topic/greetings', function(greeting){
+                stompClient.subscribe('/topic/greetings/' + roomname, function(greeting){
                     showGreeting(JSON.parse(greeting.body));
                 });
-                stompClient.subscribe('/topic/history', function(greeting){
+                stompClient.subscribe('/topic/history/' + roomname, function(greeting){
                     showHistory(JSON.parse(greeting.body));
                 });
             });
             sendHistoryQuery();
         }
-
         function disconnect() {
             if (stompClient != null) {
                 stompClient.disconnect();
             }
             setConnected(false);
         }
-
-        function getColor(username){
-            if(usernames[username] === undefined){
-                usernames[username] = colors[Math.floor(Math.random() * colors.length)];
+        function getColor(uname){
+            if(usernames[uname] === undefined){
+                usernames[uname] = colors[Math.floor(Math.random() * colors.length)];
                 document.getElementById('roomuserlist').innerHTML = document.getElementById('roomuserlist').innerHTML +
-                    '<b><code><font color="' + usernames[username] + '">' + username + '</font></code></b><br>';
+                        '<b><code><font color="' + usernames[uname] + '">' + uname + '</font></code></b><br>';
             }
-            return usernames[username];
+            return usernames[uname];
         }
-
         function sendName() {
             var content = document.getElementById('content').value;
             if(content == '') return;
-            stompClient.send("/app/hello", {}, JSON.stringify({ 'content': content }));
+            stompClient.send('/app/hello/' + roomname, {}, JSON.stringify({ 'author': username, 'content': content }));
             document.getElementById('content').value = '';
         }
-
         function sendHistoryQuery(){
             if(stompClient.ws.readyState === SockJS.CONNECTING || stompClient.subscheck != 2)
                 setTimeout(sendHistoryQuery, 100);
             else
-                stompClient.send("/app/history", {}, JSON.stringify({ 'content': '' }));
+                stompClient.send('/app/history/' + roomname, {}, JSON.stringify({ 'content': '' }));
         }
-
         function showGreeting(message) {
             document.getElementById('response').innerHTML = document.getElementById('response').innerHTML +
-                '<b><code><font color="' + getColor(message.author) + '">' + message.author + '</font></code></b>: ' +
-                message.content + '<br>';
+                    '<b><code><font color="' + getColor(message.author) + '">' + message.author + '</font></code></b>: ' +
+                    message.content + '<br>';
             document.getElementById('response').scrollTop = document.getElementById('response').scrollHeight;
         }
-
         function showHistory(history){
             document.getElementById('response').innerHTML = '';
             for(i=0; i < history.authors.length; i++){
                 showGreeting({"author": history.authors[i], "content": history.contents[i]});
             }
         }
-
         function messageInputKeyCheck( keyboardInfo ){
             if( keyboardInfo.keyCode == 13 ) sendName();
         }
@@ -109,10 +101,12 @@
 </head>
 <body onload="connect()" id="thebody">
 
-     <!-- scrt for log out -->
-     <form action="/logout" method="post" id="logoutForm">
-         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-     </form>
+    <!-- scrt for log out -->
+    <form action="/logout" method="post" id="logoutForm">
+    <input type="hidden"
+           name="${_csrf.parameterName}"
+           value="${_csrf.token}"/>
+    </form>
 
      <div class="navbar navbar-static navbar-inverse navbar-fixed-top" id="navbar">
         <div class="navbar-inner">
@@ -205,7 +199,7 @@
     <div class="container">
         <div class="span12" id="allcontent">
             <h3 id="roomname">
-                Room #!ROOMNAME!#
+                Room ${roomname}
             </h3>
             <div class="container">
                 <div class="well span8" style="height: 400px; overflow-y: scroll; text-align: left; word-wrap: break-word;" id="response">
