@@ -14,3 +14,10 @@
 	border-radius:5px;
 	box-shadow: 0 0 25px rgba( 0,0,0,1.0);
 }
+
+#response, #content
+{
+	font-family: Monaco, Menlo, Consolas, "Courier New", monospace;
+	font-size: 14px;
+	color: #333333;
+}

@@ -1,17 +1,3 @@
-<!--
-	#!LOGINMESSAGE!#
-
-		Content: Login status
-
-		Variants:
-			Login invitation:
-				<p class=muted>Enter username and password</p>
-				
-			Login fail:
-				<p class=text-error>Invalid username or password</p>
-
-
-!-->
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 		 pageEncoding="UTF-8"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
@@ -28,6 +14,45 @@
 	<script src="<c:url value="js/bootstrap.js" />"></script>
 	<script src="<c:url value="js/bc-index.js"/>"></script>
 </head>
+
+<script type="text/javascript">
+	isSignInButtonEnabled = false;
+
+	loginButtonID = 'loginButton';
+	userNameInputID = 'usernameInput';
+	passwordInputID = 'passwordInput';
+
+
+	function setEnabled( ){
+		document.getElementById( loginButtonID ).className = document.getElementById( loginButtonID ).className.replace(' disabled', '');
+		document.getElementById( loginButtonID ).type = "submit";
+	}
+
+	function setDisabled( ){
+		document.getElementById( loginButtonID ).className = document.getElementById( loginButtonID ).className + ' disabled';
+		document.getElementById( loginButtonID ).type = "button";
+	}
+
+	function checkInput(){
+		isUserNameEmpty = document.getElementById( userNameInputID ).value == '';
+		isUserPasswordEmpty = document.getElementById( passwordInputID ).value == '';
+		isAnyFieldEmpty = isUserNameEmpty || isUserPasswordEmpty;
+
+		if( isAnyFieldEmpty ){
+			if( isSignInButtonEnabled ){
+				setDisabled( );
+				isSignInButtonEnabled = false;
+			}
+		}
+		else{
+			if( ! isSignInButtonEnabled ){
+				setEnabled( );
+				isSignInButtonEnabled = true;
+			}
+		}
+	}
+</script>
+
 
 <body id="thebody">
 
@@ -75,7 +100,7 @@
 						<span class="add-on">
 							<i class="icon-user"></i>
 						</span>
-						<input class="span3" id="usernameInput" type="text" name="username" placeholder="User Name"/>
+						<input class="span3" id="usernameInput" type="text" name="username" placeholder="User Name" onchange="checkInput()" onkeyup="checkInput()"/>
 					</div>
 				</div>
 				<div class="control-group">
@@ -83,11 +108,11 @@
 						<span class="add-on">
 							<i class="icon-asterisk"></i>
 						</span>
-						<input class="span3" id="passwordInput" type="password" name="password" placeholder="Password"/>
+						<input class="span3" id="passwordInput" type="password" name="password" placeholder="Password" onchange="checkInput()" onkeyup="checkInput()"/>
 					</div>
 				</div>
 				<div class="control-group">
-					<input type="submit" class="btn btn-primary disabled" id="loginButton" value="Sign In"/>
+					<input type="button" class="btn btn-primary disabled" id="loginButton" value="Sign In"/>
 				</div>
 				<input type="hidden" name="${_csrf.parameterName}"
 					value="${_csrf.token}"/>

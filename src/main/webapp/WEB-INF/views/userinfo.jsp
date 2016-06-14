@@ -1,55 +1,4 @@
 <!--
-
-	#!USERNAME!#
-
-		Content: Name of the current user
-
-		Example:
-			kron22
-
-	#!ADMINTOOLSLIST!#
-
-		Content: Links for Admin
-
-		Variants:
-			User is Admin:
-
-				<ul class="nav" role="navigation">
-					<li class="dropdown" align="left" id="adminlist">
-						<a class="dropdown-toggle" role="button" data-toggle="dropdown" style="color: #fff;">
-							<i class="icon-wrench icon-white"></i>
-							Admin Tools
-							<b class="caret"></b>
-						</a>
-						<ul class="dropdown-menu" role="menu">
-							<li>
-								<a href="#!ADMINCREATEUSERLINK!#" tabindex="-1">
-									<i class="icon-plus"></i>
-									Create User
-								</a>
-							</li>
-							<li>
-								<a href="#!ADMINMODIFYUSERLINK!#" tabindex="-1">
-									<i class="icon-edit"></i>
-									Modify/Delete User
-								</a>
-							</li>
-						</ul>
-					</li>
-				</ul>
-
-			User is Not Admin:
-
-				<ul class="nav" role="navigation">
-					<li class="dropdown">
-						<a class="dropdown-toggle" id="username" role="button" style="color: #333;">
-							<i class="icon-wrench"></i>
-							Admin Tools
-							<b class="caret"></b>
-						</a>
-					</li>
-				</ul>
-
 	#!FULLROOMLISTLINK!#
 
 		Content: Link to full room list (current page)
@@ -103,44 +52,6 @@
 			modifyuser.html
 			admin.html?mode=modify
 
-	#!ADMINSTATUS!#
-
-		Content: info about administrator status
-
-		Variants:
-
-			User is not admin: (empty string)
-
-			User is admin:
-				<div class="control-group">
-					<p class="text-error">
-						<button class="btn btn-small"  rel="popover" data-placement="right" data-trigger="hover" title="Administrator rights" data-content="Administrator can enter every private room, modify or delete every room. Also administrator can create users, modify or delete rhem.">
-							<i class="icon-wrench" ></i>
-						</button>
-						Administrator
-					</p>
-				</div>
-
-	#!USERFIRSTNAME!#
-
-		Content: user's first name
-
-		Example:
-			Alexandr
-
-	#!USERSECONDNAME!#
-
-		Content: user's second name
-
-		Example:
-			Mikheev
-
-	#!USERPOST!#
-
-		Content: user's post
-
-		Example:
-			Software Developer
 !-->
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 		 pageEncoding="UTF-8"%>

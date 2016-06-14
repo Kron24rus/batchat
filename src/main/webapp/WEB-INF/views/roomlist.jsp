@@ -342,7 +342,7 @@
 								</c:choose>
 							</td>
 							<td>
-								<a class="btn btn-success" href="#">
+								<a class="btn btn-success" href="/roomchat">
 									<i class="icon-arrow-up icon-white"></i>
 									Enter
 								</a>

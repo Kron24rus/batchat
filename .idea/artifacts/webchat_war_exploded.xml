@@ -71,6 +71,8 @@
           <element id="library" level="project" name="Maven: org.springframework:spring-jdbc:4.2.6.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-tx:4.2.6.RELEASE" />
           <element id="library" level="project" name="Maven: mysql:mysql-connector-java:5.1.38" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-messaging:4.0.1.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-websocket:4.0.1.RELEASE" />
         </element>
       </element>
       <element id="directory" name="META-INF">

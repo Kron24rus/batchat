@@ -2,13 +2,22 @@ package com.fireway.batchat.config;
 
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
+import javax.servlet.ServletRegistration;
+
 /**
  * Created by kron on 12.06.16.
  */
 public class WebConfig extends AbstractAnnotationConfigDispatcherServletInitializer {
+
+    @Override
+    protected void customizeRegistration(ServletRegistration.Dynamic registration) {
+        registration.setInitParameter("dispatchOptionsRequest", "true");
+        registration.setAsyncSupported(true);
+    }
+
     @Override
     protected Class<?>[] getRootConfigClasses() {
-        return new Class[] {MvcConfig.class};
+        return new Class[] {AppConfig.class, WebSocketConfig.class};
     }
 
     @Override
