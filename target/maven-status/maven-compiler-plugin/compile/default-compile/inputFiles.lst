@@ -10,7 +10,9 @@
 /home/kron/projects/Java/JavaSimple/webchat/src/main/java/com/fireway/batchat/repository/UserRepository.java
 /home/kron/projects/Java/JavaSimple/webchat/src/main/java/com/fireway/batchat/entity/User.java
 /home/kron/projects/Java/JavaSimple/webchat/src/main/java/com/fireway/batchat/config/WebSecurityConfig.java
+/home/kron/projects/Java/JavaSimple/webchat/src/main/java/com/fireway/batchat/controller/scheduleds/ScheduledMessageSave.java
 /home/kron/projects/Java/JavaSimple/webchat/src/main/java/com/fireway/batchat/config/AppConfig.java
+/home/kron/projects/Java/JavaSimple/webchat/src/main/java/com/fireway/batchat/repository/MessageRepository.java
 /home/kron/projects/Java/JavaSimple/webchat/src/main/java/com/fireway/batchat/entity/dto/UserDTO.java
 /home/kron/projects/Java/JavaSimple/webchat/src/main/java/com/fireway/batchat/config/WebSocketConfig.java
 /home/kron/projects/Java/JavaSimple/webchat/src/main/java/com/fireway/batchat/entity/Room.java
@@ -20,6 +22,7 @@
 /home/kron/projects/Java/JavaSimple/webchat/src/main/java/com/fireway/batchat/repository/RoleRepository.java
 /home/kron/projects/Java/JavaSimple/webchat/src/main/java/com/fireway/batchat/entity/UserInfo.java
 /home/kron/projects/Java/JavaSimple/webchat/src/main/java/com/fireway/batchat/entity/chat/History.java
+/home/kron/projects/Java/JavaSimple/webchat/src/main/java/com/fireway/batchat/entity/chat/MessageEntity.java
 /home/kron/projects/Java/JavaSimple/webchat/src/main/java/com/fireway/batchat/entity/dto/RoomDTO.java
 /home/kron/projects/Java/JavaSimple/webchat/src/main/java/com/fireway/batchat/entity/chat/Answer.java
 /home/kron/projects/Java/JavaSimple/webchat/src/main/java/com/fireway/batchat/config/WebConfig.java

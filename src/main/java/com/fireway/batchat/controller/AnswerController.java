@@ -30,6 +30,14 @@ public class AnswerController {
         this.messageSendingOperations = messageSendingOperations;
     }
 
+    public static List<MessageEntity> getMessageEntityList() {
+        return messageEntityList;
+    }
+
+    public static void setMessageEntityList(List<MessageEntity> messageEntityList) {
+        AnswerController.messageEntityList = messageEntityList;
+    }
+
     private static String tagScreening(String str){
         str = str.replace("&", "&amp;");
         str = str.replace("<", "&lt;");
@@ -37,7 +45,7 @@ public class AnswerController {
         return str;
     }
 
-    private static void entityListToHistory(List<MessageEntity> entityList){
+    public static void entityListToHistory(List<MessageEntity> entityList){
         for (MessageEntity entity : entityList){
             if (!history.containsKey(entity.getRoomname())){
                 history.put(entity.getRoomname(), new ArrayList<Answer>());
@@ -53,7 +61,7 @@ public class AnswerController {
             history.put(roomId, new ArrayList<Answer>());
         }
         history.get(roomId).add(ans);
-        messageEntityList.add(new MessageEntity(ans.getAuthor(), ans.getContent(), roomId));
+        messageEntityList.add(new MessageEntity(ans.getAuthor(), roomId, ans.getContent()));
         messageSendingOperations.convertAndSend("/topic/greetings/" + roomId, ans);
     }
 

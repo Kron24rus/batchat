@@ -19,10 +19,12 @@ com/fireway/batchat/entity/dto/UserDTO.class
 com/fireway/batchat/entity/dto/RoomDTO.class
 com/fireway/batchat/repository/UserInfoRepository.class
 com/fireway/batchat/entity/chat/History.class
+com/fireway/batchat/repository/MessageRepository.class
 com/fireway/batchat/repository/RoomRepository.class
 com/fireway/batchat/repository/UserRepository.class
 com/fireway/batchat/security/CustomUserDetails.class
 com/fireway/batchat/repository/RoleRepository.class
+com/fireway/batchat/controller/scheduleds/ScheduledMessageSave.class
 com/fireway/batchat/entity/chat/Message.class
 com/fireway/batchat/config/WebSpringSecurityInit.class
 com/fireway/batchat/controller/BaseController.class
