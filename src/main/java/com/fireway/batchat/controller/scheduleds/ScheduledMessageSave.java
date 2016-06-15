@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author Alexander Mikheev
+ * Created by kron on 15.06.16.
  */
 @Component
 public class ScheduledMessageSave {

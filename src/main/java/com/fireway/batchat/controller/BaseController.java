@@ -70,19 +70,30 @@ public class BaseController {
         model.addObject("formaction", "/addroom");
         model.addObject("roomForm", roomForm);
         model.addObject("userList", users);
-        model.setViewName("createroom");
+        model.addObject("roomaction", "Create");
+        model.setViewName("/createroom");
         return model;
     }
 
     @RequestMapping(value = "/modifyroom", method = RequestMethod.GET)
-    public ModelAndView updateRoomPage() {
+    public ModelAndView updateRoomPage(@RequestParam(name = "roomname") String roomname) {
+        Room room = roomRepository.findByRoomName(roomname);
         RoomDTO roomForm = new RoomDTO();
+        roomForm.setRoomName(roomname);
+        roomForm.setAccess(room.isPrivate());
+        roomForm.setUserName(room.getUser().getUserName());
+        List<Long> userId = new LinkedList<>();
+        for (User u : room.getUsers()) {
+            userId.add(u.getUserId());
+        }
+        roomForm.setPrivateUsers(userId);
         List<User> users = (List<User>) userRepository.findAll();
         ModelAndView model = new ModelAndView();
         model.addObject("userList", users);
         model.addObject("roomForm", roomForm);
+        model.addObject("roomaction", "Update");
         model.addObject("formaction", "/updateroom");
-        model.setViewName("createroom");
+        model.setViewName("/createroom");
         return model;
     }
 
@@ -109,6 +120,19 @@ public class BaseController {
 
     @RequestMapping(value = "/updateroom", method = RequestMethod.POST)
     public ModelAndView updateRoom(@ModelAttribute("roomForm") RoomDTO roomDto) {
+        Room room = new Room();
+        room.setRoomName(roomDto.getRoomName());
+        room.setPrivate(roomDto.isAccess());
+        room.setRoomId(roomRepository.findByRoomName(roomDto.getRoomName()).getRoomId());
+        room.setUser(userRepository.findByUserName(roomDto.getUserName()));
+        if (null != roomDto.getPrivateUsers()) {
+            List<User> users = new LinkedList<>();
+            for (Long l : roomDto.getPrivateUsers()) {
+                users.add(userRepository.findByUserId(l));
+            }
+            room.setUsers(users);
+        }
+        roomRepository.save(room);
         ModelAndView model = new ModelAndView();
         model.setViewName("redirect:/roomlist");
         return model;
@@ -126,11 +150,30 @@ public class BaseController {
     }
 
     @RequestMapping(value = "/roomchat", method = RequestMethod.GET)
-    public ModelAndView chatPage(@RequestParam(value = "roomname") String roomname) {
+    public ModelAndView chatPage(@RequestParam(value = "roomname") String roomname,
+                                 @RequestParam(value = "username") String username) {
         ModelAndView model = new ModelAndView();
-        model.addObject("roomname", roomname);
-        model.setViewName("roomchat");
-        return model;
+        Room room = roomRepository.findByRoomName(roomname);
+        if (room.isPrivate()) {
+            List<User> users = room.getUsers();
+            boolean isParticipant = false;
+            for (User u : users) {
+                if (u.getUserName().equals(username)) isParticipant = true;
+            }
+            if (room.getUser().getUserName().equals(username)) isParticipant = true;
+            if (isParticipant) {
+                model.addObject("roomname", roomname);
+                model.setViewName("roomchat");
+                return model;
+            } else {
+                model.setViewName("redirect:/roomlist");
+                return model;
+            }
+        } else {
+            model.addObject("roomname", roomname);
+            model.setViewName("roomchat");
+            return model;
+        }
     }
 
     @RequestMapping(value = "/createuser", method = RequestMethod.GET)
@@ -282,7 +325,7 @@ public class BaseController {
             return model;
         }
         model.addObject("userlist", users);
-        model.setViewName("/modifyuser");
+        model.setViewName("redirect:/modifyuser");
         return model;
     }
 

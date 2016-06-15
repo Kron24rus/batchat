@@ -342,12 +342,12 @@
 								</c:choose>
 							</td>
 							<td>
-								<a class="btn btn-success" href="/roomchat?roomname=${item.roomName}">
+								<a class="btn btn-success" href="/roomchat?roomname=${item.roomName}&username=${pageContext.request.userPrincipal.name}">
 									<i class="icon-arrow-up icon-white"></i>
 									Enter
 								</a>
 								<sec:authorize access="hasRole('ROLE_ADMIN') and isAuthenticated()">
-									<a class="btn btn-warning" href="/modifyroom">
+									<a class="btn btn-warning" href="/modifyroom?roomname=${item.roomName}">
 										<i class="icon-wrench icon-white"></i>
 										Modify
 									</a>
@@ -396,19 +396,19 @@
 									</c:choose>
 								</td>
 								<td>
-									<a class="btn btn-success" href="/roomchat?roomname=${item.roomName}">
+									<a class="btn btn-success" href="/roomchat?roomname=${item.roomName}&username=${pageContext.request.userPrincipal.name}">
 										<i class="icon-arrow-up icon-white"></i>
 										Enter
 									</a>
 									<sec:authorize access="hasRole('ROLE_ADMIN') and isAuthenticated()">
-										<a class="btn btn-warning" href="/modifyroom">
+										<a class="btn btn-warning" href="/modifyroom?roomname=${item.roomName}">
 											<i class="icon-wrench icon-white"></i>
 											Modify
 										</a>
 									</sec:authorize>
 									<sec:authorize access="hasRole('ROLE_USER') and isAuthenticated()">
 										<c:if test="${pageContext.request.userPrincipal.name == item.user.userName}">
-											<a class="btn btn-warning" href="/modifyroom">
+											<a class="btn btn-warning" href="/modifyroom?roomname=${item.roomName}">
 												<i class="icon-wrench icon-white"></i>
 												Modify
 											</a>

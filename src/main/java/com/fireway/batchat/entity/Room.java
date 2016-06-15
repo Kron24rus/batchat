@@ -6,7 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * @author Alexander Mikheev
+ * Created by kron on 13.06.16.
  */
 @Entity
 @Table(name = "rooms")
@@ -27,12 +27,23 @@ public class Room {
     @JoinColumn(name = "owner_id")
     private User user;
 
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "room", orphanRemoval = true)
+    private List<Message> messages = new ArrayList<>();
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "room_users", joinColumns = @JoinColumn(name = "room_id", referencedColumnName = "room_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id", referencedColumnName = "user_id"))
     private List<User> users = new ArrayList<>();
 
     public Room() {
+    }
+
+    public List<Message> getMessages() {
+        return messages;
+    }
+
+    public void setMessages(List<Message> messages) {
+        this.messages = messages;
     }
 
     public boolean isPrivate() {
@@ -73,16 +84,5 @@ public class Room {
 
     public void setRoomName(String roomName) {
         this.roomName = roomName;
-    }
-
-    @Override
-    public String toString() {
-        return "Room{" +
-                "roomId=" + roomId +
-                ", roomName='" + roomName + '\'' +
-                ", Private=" + Private +
-                ", user=" + user +
-                ", users=" + users +
-                '}';
     }
 }

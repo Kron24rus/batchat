@@ -284,7 +284,7 @@
 	<!-- Content !-->
 	<div class="container">
 		<div class="span12" id="allcontent">
-			<h3>Create room</h3>
+			<h3>${roomaction} room</h3>
 
 			<form:form action="${formaction}" method="post" modelAttribute="roomForm">
 				<div class="control-group" id="roomNameContainer">
@@ -292,7 +292,12 @@
 						<span class="add-on">
 							<i class="icon-font"></i>
 						</span>
-						<form:input path="roomName" class="span3" id="roomNameInput" type="text" placeholder="Room name" onchange="roomNameCheck()" onkeyup="roomNameCheck()"/>
+						<c:if test="${requestScope['javax.servlet.forward.servlet_path']=='/createroom'}">
+							<form:input path="roomName" class="span3" id="roomNameInput" type="text" placeholder="Room name" onchange="roomNameCheck()" onkeyup="roomNameCheck()"/>
+						</c:if>
+						<c:if test="${requestScope['javax.servlet.forward.servlet_path']=='/modifyroom'}">"
+							<form:input path="roomName" class="span3" id="roomNameInput" readonly="true"/>
+						</c:if>
 					</div><br>
 					<span class="help-inline" id="roomNameMessage"></span>
 				</div>
@@ -322,8 +327,13 @@
 					</table>
 				</div>
 				<div class="control-group" id="createroombutton">
-					<form:input path="userName" type="hidden" value="${pageContext.request.userPrincipal.name}"/>
-					<input type="submit" class="btn btn-primary disabled" disabled value="Create" id="createRoomButton">
+					<c:if test="${requestScope['javax.servlet.forward.servlet_path']=='/createroom'}">
+						<form:input path="userName" type="hidden" value="${pageContext.request.userPrincipal.name}"/>
+					</c:if>
+					<c:if test="${requestScope['javax.servlet.forward.servlet_path']=='/modifyroom'}">
+						<form:input path="userName" type="hidden" readonly="true"/>
+					</c:if>
+					<input type="submit" class="btn btn-primary disabled" disabled value="${roomaction}" id="createRoomButton">
 				</div>
 			</form:form>
 
