@@ -4,7 +4,8 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * Created by kron on 14.06.16.
+ * The class {@code AppConfig}
+ * @author Alexander Mikheev
  */
 @Configuration
 @ComponentScan(basePackages = "com.fireway.com")

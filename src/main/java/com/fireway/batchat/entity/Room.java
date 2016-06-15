@@ -6,7 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Created by kron on 13.06.16.
+ * @author Alexander Mikheev
  */
 @Entity
 @Table(name = "rooms")

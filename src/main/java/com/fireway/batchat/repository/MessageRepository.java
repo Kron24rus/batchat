@@ -5,7 +5,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 /**
- * Created by kron on 15.06.16.
+ * @author Alexander Mikheev
  */
 @Repository
 public interface MessageRepository extends CrudRepository<Message, Long> {

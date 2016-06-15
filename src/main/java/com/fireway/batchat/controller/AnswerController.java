@@ -2,12 +2,10 @@ package com.fireway.batchat.controller;
 
 import com.fireway.batchat.entity.chat.Answer;
 import com.fireway.batchat.entity.chat.History;
-import com.fireway.batchat.entity.chat.Message;
 import com.fireway.batchat.entity.chat.MessageEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.stereotype.Controller;
 
@@ -17,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by kron on 14.06.16.
+ * @author Alexander Mikheev
  */
 @Controller
 public class AnswerController {

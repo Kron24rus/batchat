@@ -5,7 +5,7 @@ import com.fireway.batchat.entity.User;
 import java.util.List;
 
 /**
- * Created by kron on 14.06.16.
+ * @author Alexander Mikheev
  */
 public class RoomDTO {
 

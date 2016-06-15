@@ -1,7 +1,7 @@
 package com.fireway.batchat.entity.chat;
 
 /**
- * Created by vladimercury on 6/14/16.
+ * @author Vladimir Kuriy
  */
 public class History {
     private String[] authors;

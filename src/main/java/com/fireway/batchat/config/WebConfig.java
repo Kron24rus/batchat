@@ -5,7 +5,7 @@ import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatche
 import javax.servlet.ServletRegistration;
 
 /**
- * Created by kron on 12.06.16.
+ * @author Alexander Mikheev
  */
 public class WebConfig extends AbstractAnnotationConfigDispatcherServletInitializer {
 

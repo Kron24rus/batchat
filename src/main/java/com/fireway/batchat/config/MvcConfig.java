@@ -9,6 +9,9 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
+/**
+ * @author Alexander Mikheev
+ */
 @Configuration
 @ComponentScan(basePackages = "com.fireway.com")
 public class MvcConfig extends WebMvcConfigurerAdapter {

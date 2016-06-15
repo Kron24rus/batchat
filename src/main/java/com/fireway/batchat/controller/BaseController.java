@@ -19,7 +19,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Created by kron on 12.06.16.
+ * @author Alexander Mikheev
  */
 @Controller
 public class BaseController {

@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 /**
- * Created by kron on 13.06.16.
+ * @author Alexander Mikheev
  */
 @Entity
 @Table(name = "user_info")

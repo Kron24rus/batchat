@@ -1,7 +1,7 @@
 package com.fireway.batchat.entity.chat;
 
 /**
- * Created by vladimercury on 6/12/16.
+ * @author Vladimir Kuriy
  */
 public class Message {
     private String content;

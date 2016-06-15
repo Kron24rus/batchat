@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * Created by kron on 14.06.16.
+ * @author Alexander Mikheev
  */
 @Repository
 public interface RoomRepository extends CrudRepository<Room, Long> {

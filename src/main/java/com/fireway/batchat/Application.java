@@ -6,6 +6,10 @@ import org.springframework.boot.orm.jpa.EntityScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
+/**
+ * @author Alexander Mikheev 
+ */
+
 @SpringBootApplication
 @EnableScheduling
 @EnableJpaRepositories(basePackages = "com.fireway.batchat.repository")

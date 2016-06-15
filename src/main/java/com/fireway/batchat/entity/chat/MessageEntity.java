@@ -1,7 +1,7 @@
 package com.fireway.batchat.entity.chat;
 
 /**
- * Created by kron on 15.06.16.
+ * @author Vladimir Kuriy
  */
 public class MessageEntity {
     private String username;

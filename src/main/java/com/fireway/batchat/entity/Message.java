@@ -3,7 +3,7 @@ package com.fireway.batchat.entity;
 import javax.persistence.*;
 
 /**
- * Created by kron on 13.06.16.
+ * @author Alexander Mikheev
  */
 @Entity
 @Table(name = "messages")
